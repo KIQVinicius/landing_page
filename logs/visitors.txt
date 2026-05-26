@@ -1,0 +1,2 @@
+# Logs de visitantes — Imagenai Landing Page
+# Formato: JSON por linha | ts=timestamp, ref=origem, device=dispositivo, sections=seções vistas, wpp=clicou WhatsApp, form=enviou formulário

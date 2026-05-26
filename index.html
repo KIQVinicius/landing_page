@@ -784,7 +784,7 @@
 </a>
 
 <!-- ══ HERO ══ -->
-<div class="hero">
+<div class="hero" id="sec-hero">
   <div class="hero-inner">
     <div class="hero-badge">
       ⭐ Mais de 50 fotos entregues com 5 estrelas
@@ -806,7 +806,7 @@
 </div>
 
 <!-- ══ DOR ══ -->
-<div class="section">
+<div class="section" id="sec-dor">
   <div class="section-label">O problema</div>
   <div class="section-title">Foto ruim está te custando venda</div>
   <div class="section-sub">Se o cliente não para na sua foto, ele compra do concorrente.</div>
@@ -838,7 +838,7 @@
 <div class="divider"></div>
 
 <!-- ══ COMPARISON SLIDER ══ -->
-<div class="section">
+<div class="section" id="sec-slider">
   <div class="section-label">A transformação</div>
   <div class="section-title">Arraste e veja a diferença</div>
   <div class="section-sub">Da bandeja plástica ao restaurante gourmet — mesmo hambúrguer.</div>
@@ -867,7 +867,7 @@
 <div class="divider"></div>
 
 <!-- ══ PORTFOLIO ══ -->
-<div class="section">
+<div class="section" id="sec-portfolio">
   <div class="section-label">Portfólio</div>
   <div class="section-title">Mais exemplos reais</div>
   <div class="section-sub">Comida, retrato e banner — veja o antes e o depois.</div>
@@ -935,7 +935,7 @@
 <div class="divider"></div>
 
 <!-- ══ COMO FUNCIONA ══ -->
-<div class="section">
+<div class="section" id="sec-processo">
   <div class="section-label">O processo</div>
   <div class="section-title">Simples como 1, 2, 3</div>
   <div class="section-sub">Da foto no celular à imagem profissional em até 24 horas.</div>
@@ -967,7 +967,7 @@
 <div class="divider"></div>
 
 <!-- ══ PREÇOS ══ -->
-<div class="section">
+<div class="section" id="sec-preco">
   <div class="section-label">Investimento</div>
   <div class="section-title">Preço de foto profissional acessível</div>
   <div class="section-sub">Sem assinatura. Paga só pelo que usar.</div>
@@ -1007,7 +1007,7 @@
 <div class="divider"></div>
 
 <!-- ══ GARANTIA ══ -->
-<div class="section">
+<div class="section" id="sec-garantia">
   <div class="guarantee">
     <div class="guarantee-icon">🛡️</div>
     <h3>Garantia de Satisfação Total</h3>
@@ -1024,7 +1024,7 @@
 <div class="divider"></div>
 
 <!-- ══ DEPOIMENTOS ══ -->
-<div class="section">
+<div class="section" id="sec-depoimentos">
   <div class="section-label">Clientes</div>
   <div class="section-title">Quem já usou recomenda</div>
   <div class="section-sub">Resultados reais de quem apostou na foto com IA.</div>
@@ -1072,7 +1072,7 @@
 <div class="divider"></div>
 
 <!-- ══ FAQ ══ -->
-<div class="section">
+<div class="section" id="sec-faq">
   <div class="section-label">Dúvidas</div>
   <div class="section-title">Perguntas frequentes</div>
   <div class="section-sub">Transparência total antes de você decidir.</div>
@@ -1256,6 +1256,103 @@
 
     window.open('https://wa.me/5511975637189?text=' + encodeURIComponent(msg), '_blank');
   }
+</script>
+
+<!-- ══ VISITOR TRACKING ══ -->
+<script>
+(function () {
+  // Evita logar mais de uma vez por sessão
+  if (sessionStorage.getItem('_vlog')) return;
+
+  var REPO  = 'KIQVinicius/landing_page';
+  var TOKEN = 'SEU_TOKEN_AQUI'; // Substitua pelo seu GitHub PAT
+
+  var session = {
+    ts:      new Date().toISOString(),
+    ref:     document.referrer
+               ? (document.referrer.includes('facebook') || document.referrer.includes('fb.com') ? 'facebook'
+                : document.referrer.includes('instagram') ? 'instagram'
+                : document.referrer.includes('google')    ? 'google'
+                : new URL(document.referrer).hostname)
+               : 'direct',
+    device:  /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
+    lang:    (navigator.language || 'unknown').split('-')[0],
+    sections: [],
+    wpp:     false,
+    form:    false
+  };
+
+  // Rastreia quais seções foram vistas
+  var secIds = [
+    'sec-hero','sec-dor','sec-slider','sec-portfolio',
+    'sec-processo','sec-preco','sec-garantia',
+    'sec-depoimentos','sec-faq','orcamento'
+  ];
+  var labels = {
+    'sec-hero':'hero','sec-dor':'problema','sec-slider':'slider',
+    'sec-portfolio':'portfolio','sec-processo':'processo',
+    'sec-preco':'preco','sec-garantia':'garantia',
+    'sec-depoimentos':'depoimentos','sec-faq':'faq','orcamento':'formulario'
+  };
+
+  if (window.IntersectionObserver) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          var lbl = labels[e.target.id];
+          if (lbl && session.sections.indexOf(lbl) === -1)
+            session.sections.push(lbl);
+        }
+      });
+    }, { threshold: 0.25 });
+
+    secIds.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
+  }
+
+  // Rastreia clique no WhatsApp
+  document.querySelectorAll('a[href*="wa.me"]').forEach(function(el) {
+    el.addEventListener('click', function() {
+      session.wpp = true;
+      sendLog();
+    });
+  });
+
+  // Rastreia envio do formulário
+  var origForm = window.enviarOrcamento;
+  window.enviarOrcamento = function() {
+    session.form = true;
+    if (origForm) origForm.apply(this, arguments);
+    sendLog();
+  };
+
+  // Envia depois de 4 segundos (filtra bounces de bot)
+  var timer = setTimeout(sendLog, 4000);
+
+  function sendLog() {
+    clearTimeout(timer);
+    if (sessionStorage.getItem('_vlog')) return;
+    sessionStorage.setItem('_vlog', '1');
+
+    if (!TOKEN || TOKEN === 'SEU_TOKEN_AQUI') return; // Token não configurado
+
+    fetch('https://api.github.com/repos/' + REPO + '/dispatches', {
+      method:  'POST',
+      headers: {
+        'Authorization': 'token ' + TOKEN,
+        'Accept':        'application/vnd.github.v3+json',
+        'Content-Type':  'application/json'
+      },
+      body: JSON.stringify({
+        event_type:     'visitor_log',
+        client_payload: session
+      }),
+      keepalive: true
+    }).catch(function(){});
+  }
+})();
 </script>
 </body>
 </html>

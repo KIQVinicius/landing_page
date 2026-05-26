@@ -1,0 +1,33 @@
+name: 📊 Log Visitor
+
+on:
+  repository_dispatch:
+    types: [visitor_log]
+
+# Garante que logs não colidam em paralelo
+concurrency:
+  group: visitor-log
+  cancel-in-progress: false
+
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Append visitor entry
+        run: |
+          mkdir -p logs
+          echo '${{ toJSON(github.event.client_payload) }}' >> logs/visitors.txt
+
+      - name: Commit log
+        run: |
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git pull --rebase origin main
+          git add logs/visitors.txt
+          git diff --staged --quiet || git commit -m "📊 visitor $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push
