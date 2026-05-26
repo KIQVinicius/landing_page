@@ -1265,7 +1265,7 @@
   if (sessionStorage.getItem('_vlog')) return;
 
   var REPO  = 'KIQVinicius/landing_page';
-  var TOKEN = 'SEU_TOKEN_AQUI'; // Substitua pelo seu GitHub PAT
+  var WORKER_URL = 'WORKER_URL_AQUI'; // ex: https://imagenai-log.SEU_USUARIO.workers.dev
 
   var session = {
     ts:      new Date().toISOString(),
@@ -1336,19 +1336,12 @@
     if (sessionStorage.getItem('_vlog')) return;
     sessionStorage.setItem('_vlog', '1');
 
-    if (!TOKEN || TOKEN === 'SEU_TOKEN_AQUI') return; // Token não configurado
+    if (!WORKER_URL || WORKER_URL === 'WORKER_URL_AQUI') return;
 
-    fetch('https://api.github.com/repos/' + REPO + '/dispatches', {
+    fetch(WORKER_URL, {
       method:  'POST',
-      headers: {
-        'Authorization': 'token ' + TOKEN,
-        'Accept':        'application/vnd.github.v3+json',
-        'Content-Type':  'application/json'
-      },
-      body: JSON.stringify({
-        event_type:     'visitor_log',
-        client_payload: session
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(session),
       keepalive: true
     }).catch(function(){});
   }
