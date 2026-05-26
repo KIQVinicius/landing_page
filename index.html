@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fotos com IA — Entrega em 24h</title>
+  <title>Foto com IA — Profissional em 24h | A partir de R$30</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <!-- Meta Pixel Code -->
   <script>
   !function(f,b,e,v,n,t,s)
@@ -32,11 +32,12 @@
       --green-dark:  #0F6E56;
       --wpp:         #25D366;
       --wpp-hover:   #1ebe5a;
-      --dark:        #111111;
-      --gray:        #555555;
-      --border:      #E8E8E4;
-      --bg:          #F8F8F6;
+      --dark:        #0D0D0D;
+      --gray:        #666;
+      --border:      #EAEAE6;
+      --bg:          #F7F7F5;
       --card:        #FFFFFF;
+      --orange:      #FF6B35;
     }
 
     html { scroll-behavior: smooth; }
@@ -44,13 +45,42 @@
     body {
       font-family: 'Inter', sans-serif;
       background: var(--bg);
-      color: var(--dark);
+      color: #1a1a1a;
       min-height: 100vh;
     }
 
-    /* ── HERO ── */
+    /* ══ FLOATING WPP BUTTON ══ */
+    .float-wpp {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      z-index: 999;
+      background: var(--wpp);
+      color: #fff;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: pulse 2.5s infinite;
+    }
+
+    .float-wpp:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 28px rgba(37,211,102,0.65);
+    }
+
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.5); }
+      50%      { box-shadow: 0 4px 32px rgba(37,211,102,0.8); }
+    }
+
+    /* ══ HERO ══ */
     .hero {
-      background: #111;
+      background: linear-gradient(160deg, #0D0D0D 0%, #141f1a 100%);
       color: #fff;
       padding: 3rem 1.25rem 3.5rem;
       text-align: center;
@@ -61,115 +91,269 @@
     .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(29,158,117,0.18);
-      border: 1px solid rgba(29,158,117,0.4);
+      gap: 7px;
+      background: rgba(29,158,117,0.15);
+      border: 1px solid rgba(29,158,117,0.35);
       color: #4DD9A6;
       font-size: 12px;
-      font-weight: 500;
-      padding: 5px 14px;
+      font-weight: 600;
+      padding: 6px 16px;
       border-radius: 20px;
-      margin-bottom: 1.25rem;
-      letter-spacing: 0.03em;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.04em;
     }
 
     .hero h1 {
-      font-size: 30px;
-      font-weight: 700;
-      line-height: 1.25;
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.2;
       margin-bottom: 1rem;
+      letter-spacing: -0.5px;
     }
 
-    .hero h1 span { color: #4DD9A6; }
+    .hero h1 em {
+      font-style: normal;
+      color: #4DD9A6;
+    }
 
-    .hero p {
+    .hero-sub {
       font-size: 15px;
-      color: #999;
+      color: #aaa;
       line-height: 1.7;
       max-width: 380px;
       margin: 0 auto 2rem;
     }
 
-    .hero-stats {
+    .hero-pills {
       display: flex;
       justify-content: center;
-      gap: 2.5rem;
       flex-wrap: wrap;
+      gap: 8px;
       margin-bottom: 2rem;
     }
 
-    .stat-num  { font-size: 24px; font-weight: 700; color: #fff; }
-    .stat-label { font-size: 11px; color: #777; margin-top: 2px; }
+    .pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #ccc;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+
+    .pill .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #4DD9A6;
+    }
 
     .hero-cta {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
+      gap: 10px;
       background: var(--wpp);
       color: #fff;
-      font-size: 15px;
-      font-weight: 600;
-      padding: 14px 28px;
-      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px 32px;
+      border-radius: 14px;
       text-decoration: none;
-      transition: background 0.15s;
+      transition: background 0.15s, transform 0.15s;
+      box-shadow: 0 4px 24px rgba(37,211,102,0.35);
     }
 
-    .hero-cta:hover { background: var(--wpp-hover); }
+    .hero-cta:hover {
+      background: var(--wpp-hover);
+      transform: translateY(-1px);
+    }
 
-    /* ── LAYOUT ── */
+    .hero-note {
+      font-size: 12px;
+      color: #666;
+      margin-top: 12px;
+    }
+
+    /* ══ LAYOUT ══ */
     .section {
       max-width: 560px;
       margin: 0 auto;
-      padding: 2.75rem 1.25rem;
+      padding: 3rem 1.25rem;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
     }
 
     .section-title {
-      font-size: 20px;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 0.35rem;
+      font-size: 22px;
+      font-weight: 800;
+      color: #111;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.3px;
     }
 
     .section-sub {
       font-size: 14px;
       color: var(--gray);
-      text-align: center;
       margin-bottom: 1.75rem;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
-    .divider { height: 1px; background: var(--border); margin: 0 1.25rem; }
+    .divider { height: 1px; background: var(--border); }
 
-    /* ── STEPS ── */
-    .steps { display: flex; flex-direction: column; gap: 10px; }
-
-    .step {
+    /* ══ PAIN SECTION ══ */
+    .pain-grid {
       display: flex;
-      align-items: flex-start;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pain-card {
+      display: flex;
+      align-items: center;
       gap: 1rem;
-      background: var(--card);
+      background: #fff;
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 1.25rem 1rem;
+      padding: 1rem 1.1rem;
     }
 
-    .step-num {
-      width: 36px; height: 36px; min-width: 36px;
-      background: var(--green-light);
-      color: var(--green-dark);
+    .pain-icon {
+      width: 40px; height: 40px; min-width: 40px;
+      background: #FFF0EB;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .pain-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .pain-card p  { font-size: 13px; color: var(--gray); line-height: 1.5; }
+
+    /* ══ COMPARISON SLIDER ══ */
+    .comp-wrapper {
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+      position: relative;
+      touch-action: none;
+    }
+
+    .comp-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      cursor: ew-resize;
+      user-select: none;
+    }
+
+    .comp-before {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .comp-after-layer {
+      position: absolute;
+      top: 0; left: 0;
+      width: 50%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .comp-after-layer img {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      width: auto;
+      min-width: 100%;
+      object-fit: cover;
+    }
+
+    .comp-handle {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 100%;
+      width: 3px;
+      background: #fff;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .comp-circle {
+      width: 44px; height: 44px;
+      background: #fff;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+      flex-shrink: 0;
     }
 
-    .step-content h3 { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
-    .step-content p  { font-size: 13px; color: var(--gray); line-height: 1.55; }
+    .comp-input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: ew-resize;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      margin: 0;
+    }
 
-    /* ── PORTFOLIO ── */
+    .comp-label-before,
+    .comp-label-after {
+      position: absolute;
+      bottom: 14px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      pointer-events: none;
+    }
+
+    .comp-label-before {
+      left: 12px;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+    }
+
+    .comp-label-after {
+      right: 12px;
+      background: var(--green);
+      color: #fff;
+    }
+
+    .comp-hint {
+      text-align: center;
+      font-size: 12px;
+      color: #999;
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    /* ══ PORTFOLIO GRID ══ */
     .portfolio-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -183,13 +367,13 @@
       overflow: hidden;
     }
 
-    .portfolio-comparison { display: grid; grid-template-columns: 1fr 1fr; }
+    .portfolio-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
 
     .p-side {
       aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       position: relative;
       overflow: hidden;
     }
@@ -202,58 +386,92 @@
 
     .p-side-label {
       position: absolute;
-      bottom: 6px;
+      bottom: 5px;
       left: 50%;
       transform: translateX(-50%);
       font-size: 9px;
       font-weight: 700;
       letter-spacing: 0.08em;
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 10px;
       white-space: nowrap;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.55);
       color: #fff;
     }
 
     .portfolio-label {
       padding: 8px 10px;
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--gray);
       text-align: center;
       border-top: 1px solid var(--border);
     }
 
-    /* ── PRICES ── */
+    /* ══ STEPS ══ */
+    .steps { display: flex; flex-direction: column; gap: 0; }
+
+    .step {
+      display: flex;
+      gap: 1rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .step:last-child { border-bottom: none; }
+
+    .step-num {
+      width: 38px; height: 38px; min-width: 38px;
+      background: var(--green);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 800;
+      margin-top: 1px;
+    }
+
+    .step-content h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .step-content p  { font-size: 13px; color: var(--gray); line-height: 1.55; }
+
+    /* ══ PRICING ══ */
     .prices {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
+      margin-bottom: 1rem;
     }
 
     .price-card {
       background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
       padding: 1.25rem 0.75rem;
       text-align: center;
+      transition: transform 0.15s;
     }
 
-    .price-card.featured { border: 2px solid var(--green); }
+    .price-card.featured {
+      border-color: var(--green);
+      background: #F0FAF6;
+      transform: scale(1.03);
+    }
 
     .price-tag {
       display: inline-block;
-      background: var(--green-light);
-      color: var(--green-dark);
+      background: var(--green);
+      color: #fff;
       font-size: 10px;
-      font-weight: 600;
+      font-weight: 700;
       padding: 3px 10px;
       border-radius: 20px;
       margin-bottom: 10px;
       letter-spacing: 0.03em;
     }
 
-    .price-value  { font-size: 26px; font-weight: 700; color: var(--dark); }
+    .price-value  { font-size: 28px; font-weight: 800; color: #111; }
     .price-period { font-size: 11px; color: #999; margin-top: 2px; }
 
     .price-features {
@@ -264,7 +482,7 @@
 
     .price-features li {
       font-size: 12px;
-      color: var(--gray);
+      color: #555;
       padding: 3px 0;
       display: flex;
       align-items: flex-start;
@@ -274,56 +492,173 @@
     .price-features li::before {
       content: '✓';
       color: var(--green);
-      font-weight: 700;
+      font-weight: 800;
       flex-shrink: 0;
     }
 
-    /* ── TESTIMONIALS ── */
+    .pricing-note {
+      font-size: 12px;
+      color: #999;
+      text-align: center;
+    }
+
+    /* ══ GUARANTEE ══ */
+    .guarantee {
+      background: linear-gradient(135deg, #F0FAF6 0%, #E1F5EE 100%);
+      border: 1.5px solid #b2e4d0;
+      border-radius: 18px;
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+    }
+
+    .guarantee-icon {
+      font-size: 40px;
+      margin-bottom: 0.75rem;
+    }
+
+    .guarantee h3 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--green-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .guarantee p {
+      font-size: 14px;
+      color: #444;
+      line-height: 1.65;
+    }
+
+    .guarantee-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 1.25rem;
+      text-align: left;
+    }
+
+    .g-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .g-check {
+      width: 22px; height: 22px; min-width: 22px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    /* ══ TESTIMONIALS ══ */
     .testimonials { display: flex; flex-direction: column; gap: 10px; }
 
     .testimonial {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 14px;
+      border-radius: 16px;
       padding: 1.25rem;
     }
 
-    .stars { color: #F5A623; font-size: 13px; margin-bottom: 8px; }
+    .stars { color: #F5A623; font-size: 14px; margin-bottom: 8px; }
 
     .testimonial-text {
       font-size: 14px;
       color: #333;
       line-height: 1.65;
       margin-bottom: 1rem;
+      font-style: italic;
     }
 
     .testimonial-author { display: flex; align-items: center; gap: 10px; }
 
     .author-avatar {
-      width: 36px; height: 36px;
+      width: 38px; height: 38px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 15px;
-      font-weight: 700;
+      font-weight: 800;
       color: #fff;
       flex-shrink: 0;
     }
 
-    .author-name { font-size: 13px; font-weight: 600; }
+    .author-name { font-size: 13px; font-weight: 700; }
     .author-role { font-size: 12px; color: #999; }
 
-    /* ── FORM ── */
-    .form-card {
+    /* ══ FAQ ══ */
+    .faq { display: flex; flex-direction: column; gap: 8px; }
+
+    .faq-item {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.75rem 1.5rem;
+      border-radius: 12px;
+      overflow: hidden;
     }
 
-    .form-card h2    { font-size: 18px; font-weight: 700; margin-bottom: 0.3rem; }
-    .form-card .sub  { font-size: 13px; color: var(--gray); margin-bottom: 1.5rem; }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1rem 1.1rem;
+      font-size: 14px;
+      font-weight: 600;
+      color: #111;
+      font-family: 'Inter', sans-serif;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .faq-icon {
+      font-size: 18px;
+      color: var(--green);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-a {
+      display: none;
+      font-size: 13px;
+      color: #555;
+      line-height: 1.65;
+      padding: 0 1.1rem 1rem;
+    }
+
+    .faq-item.open .faq-a { display: block; }
+
+    /* ══ FORM ══ */
+    .form-wrap {
+      background: linear-gradient(160deg, #0D0D0D 0%, #141f1a 100%);
+      padding: 3rem 1.25rem;
+    }
+
+    .form-inner { max-width: 560px; margin: 0 auto; }
+
+    .form-inner .section-label { color: #4DD9A6; }
+    .form-inner .section-title { color: #fff; }
+    .form-inner .section-sub   { color: #888; }
+
+    .form-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 18px;
+      padding: 1.75rem 1.5rem;
+    }
 
     .field { margin-bottom: 1.25rem; }
 
@@ -331,52 +666,53 @@
       display: block;
       font-size: 13px;
       font-weight: 500;
-      color: #444;
+      color: #aaa;
       margin-bottom: 8px;
     }
 
     .field input {
       width: 100%;
-      padding: 11px 14px;
+      padding: 12px 14px;
       font-size: 14px;
       font-family: 'Inter', sans-serif;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background: #fafaf8;
-      color: #111;
+      border: 1px solid #333;
+      border-radius: 10px;
+      background: #111;
+      color: #fff;
       outline: none;
       transition: border-color 0.15s;
     }
 
+    .field input::placeholder { color: #555; }
     .field input:focus { border-color: var(--green); }
 
     .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
     .opt {
-      background: #fafaf8;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 10px 12px;
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 11px 12px;
       cursor: pointer;
       font-size: 13px;
-      color: #333;
+      color: #aaa;
       display: flex;
       align-items: center;
       gap: 8px;
-      transition: border-color 0.15s, background 0.15s;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
       user-select: none;
     }
 
-    .opt:hover { border-color: #aaa; }
+    .opt:hover { border-color: #555; color: #fff; }
 
     .opt.selected {
       border-color: var(--green);
-      background: var(--green-light);
-      color: var(--green-dark);
-      font-weight: 500;
+      background: rgba(29,158,117,0.12);
+      color: #4DD9A6;
+      font-weight: 600;
     }
 
-    .field-error { font-size: 12px; color: #c0392b; margin-top: 5px; display: none; }
+    .field-error { font-size: 12px; color: #ff6b6b; margin-top: 5px; display: none; }
 
     .wpp-btn {
       display: flex;
@@ -387,101 +723,113 @@
       background: var(--wpp);
       color: #fff;
       border: none;
-      border-radius: 12px;
-      padding: 15px;
+      border-radius: 14px;
+      padding: 16px;
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 700;
       font-family: 'Inter', sans-serif;
       cursor: pointer;
       margin-top: 1.25rem;
-      transition: background 0.15s;
+      transition: background 0.15s, transform 0.15s;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.3);
     }
 
-    .wpp-btn:hover { background: var(--wpp-hover); }
+    .wpp-btn:hover {
+      background: var(--wpp-hover);
+      transform: translateY(-1px);
+    }
 
-    /* ── TRUST ── */
-    .trust {
+    .form-trust {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1.25rem;
       flex-wrap: wrap;
-      padding: 1.5rem 1.25rem 3rem;
+      margin-top: 1.25rem;
     }
 
-    .trust-item {
+    .form-trust-item {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 13px;
+      gap: 5px;
+      font-size: 12px;
       color: #666;
     }
 
-    .trust-item svg { color: var(--green); }
+    .form-trust-item svg { color: var(--green); }
 
-    /* ── RESPONSIVE ── */
+    /* ══ FOOTER ══ */
+    .footer {
+      text-align: center;
+      padding: 1.5rem 1.25rem;
+      font-size: 12px;
+      color: #888;
+      border-top: 1px solid #222;
+      background: #0D0D0D;
+    }
+
+    /* ══ RESPONSIVE ══ */
     @media (max-width: 400px) {
-      .hero h1    { font-size: 24px; }
-      .prices     { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 26px; }
+      .prices  { grid-template-columns: 1fr; }
+      .price-card.featured { transform: scale(1); }
       .portfolio-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- ══ HERO ══════════════════════════════════════ -->
+<!-- ══ FLOATING WPP ══ -->
+<a href="https://wa.me/5511975637189?text=Olá!%20Vim%20pela%20landing%20page%20e%20quero%20fazer%20um%20orçamento." class="float-wpp" target="_blank" aria-label="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ══ HERO ══ -->
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-badge">
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-      Edição com IA · Entrega em 24h
+      ⭐ Mais de 50 fotos entregues com 5 estrelas
     </div>
-    <h1>Foto profissional<br><span>sem estúdio, sem espera</span></h1>
-    <p>Produto, comida, retrato ou banner — você manda a referência, a gente entrega com qualidade de agência.</p>
-    <div class="hero-stats">
-      <div>
-        <div class="stat-num">24h</div>
-        <div class="stat-label">prazo de entrega</div>
-      </div>
-      <div>
-        <div class="stat-num">R$30</div>
-        <div class="stat-label">por foto</div>
-      </div>
-      <div>
-        <div class="stat-num">100%</div>
-        <div class="stat-label">ajuste grátis</div>
-      </div>
+    <h1>A foto que faz o cliente<br>parar de rolar e <em>comprar</em></h1>
+    <p class="hero-sub">Produto, comida, retrato ou banner — com qualidade de agência, entregue em até 24 horas, a partir de R$30.</p>
+    <div class="hero-pills">
+      <div class="pill"><div class="dot"></div>Entrega em 24h</div>
+      <div class="pill"><div class="dot"></div>Ajuste grátis</div>
+      <div class="pill"><div class="dot"></div>Paga só ao aprovar</div>
+      <div class="pill"><div class="dot"></div>A partir de R$30</div>
     </div>
     <a href="#orcamento" class="hero-cta">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       Quero meu orçamento grátis
     </a>
+    <p class="hero-note">Sem compromisso · Resposta em minutos</p>
   </div>
 </div>
 
-<!-- ══ COMO FUNCIONA ══════════════════════════════ -->
+<!-- ══ DOR ══ -->
 <div class="section">
-  <div class="section-title">Como funciona</div>
-  <div class="section-sub">Simples, rápido e sem complicação</div>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div class="step-content">
-        <h3>Manda a referência pelo WhatsApp</h3>
-        <p>Foto do produto, do prato ou da pessoa — e descreve o resultado que você quer. O atendimento te guia.</p>
+  <div class="section-label">O problema</div>
+  <div class="section-title">Foto ruim está te custando venda</div>
+  <div class="section-sub">Se o cliente não para na sua foto, ele compra do concorrente.</div>
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="pain-icon">📱</div>
+      <div>
+        <h3>Foto de celular não converte</h3>
+        <p>Produto bom com foto ruim parece produto ruim. O cliente não clica.</p>
       </div>
     </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div class="step-content">
-        <h3>A gente gera com IA em até 24h</h3>
-        <p>Nossa equipe usa ferramentas de IA profissional pra transformar sua foto com qualidade de estúdio.</p>
+    <div class="pain-card">
+      <div class="pain-icon">💸</div>
+      <div>
+        <h3>Fotógrafo é caro e lento</h3>
+        <p>R$500+ por sessão, agendamento em semanas. Não dá pra escalar.</p>
       </div>
     </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div class="step-content">
-        <h3>Aprova, ajusta se quiser, paga via Pix</h3>
-        <p>Ajuste é gratuito. Só paga quando estiver 100% satisfeito. Arquivo final sem marca d'água.</p>
+    <div class="pain-card">
+      <div class="pain-icon">📉</div>
+      <div>
+        <h3>Concorrente com foto melhor vende mais</h3>
+        <p>Mesmo produto, mesma loja — quem tem a foto mais bonita ganha o pedido.</p>
       </div>
     </div>
   </div>
@@ -489,28 +837,42 @@
 
 <div class="divider"></div>
 
-<!-- ══ PORTFOLIO ══════════════════════════════════ -->
+<!-- ══ COMPARISON SLIDER ══ -->
 <div class="section">
-  <div class="section-title">Antes & Depois</div>
-  <div class="section-sub">Exemplos do que a IA faz com suas fotos</div>
-  <div class="portfolio-grid">
-
-    <!-- Item 1 — Produto -->
-    <div class="portfolio-item">
-      <div class="portfolio-comparison">
-        <div class="p-side">
-          <img src="imgs/produto-antes.png" alt="Produto antes" />
-          <div class="p-side-label">ANTES</div>
-        </div>
-        <div class="p-side">
-          <img src="imgs/produto-depois.png" alt="Produto depois" />
-          <div class="p-side-label">DEPOIS</div>
+  <div class="section-label">A transformação</div>
+  <div class="section-title">Arraste e veja a diferença</div>
+  <div class="section-sub">Da cozinha bagunçada ao fundo de estúdio profissional — mesmo produto.</div>
+  <div class="comp-wrapper">
+    <div class="comp-container" id="compContainer">
+      <img class="comp-before" src="imgs/produto-antes.png" alt="Antes da edição com IA" />
+      <div class="comp-after-layer" id="compAfter">
+        <img src="imgs/produto-depois.png" alt="Depois da edição com IA" id="compAfterImg" />
+      </div>
+      <div class="comp-handle" id="compHandle">
+        <div class="comp-circle">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2.5"><path d="M5 12h14M9 8l-4 4 4 4M15 8l4 4-4 4"/></svg>
         </div>
       </div>
-      <div class="portfolio-label">Foto de produto</div>
+      <input type="range" class="comp-input" id="compSlider" value="50" min="0" max="100" />
+      <div class="comp-label-before">ANTES</div>
+      <div class="comp-label-after">DEPOIS ✨</div>
     </div>
+  </div>
+  <div class="comp-hint">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M9 8l-4 4 4 4M15 8l4 4-4 4"/></svg>
+    Arraste para comparar
+  </div>
+</div>
 
-    <!-- Item 2 — Comida -->
+<div class="divider"></div>
+
+<!-- ══ PORTFOLIO ══ -->
+<div class="section">
+  <div class="section-label">Portfólio</div>
+  <div class="section-title">Mais exemplos reais</div>
+  <div class="section-sub">Comida, retrato e banner — veja o antes e o depois.</div>
+  <div class="portfolio-grid">
+
     <div class="portfolio-item">
       <div class="portfolio-comparison">
         <div class="p-side">
@@ -525,7 +887,6 @@
       <div class="portfolio-label">Foto de comida</div>
     </div>
 
-    <!-- Item 3 — Retrato -->
     <div class="portfolio-item">
       <div class="portfolio-comparison">
         <div class="p-side">
@@ -540,7 +901,6 @@
       <div class="portfolio-label">Retrato profissional</div>
     </div>
 
-    <!-- Item 4 — Banner -->
     <div class="portfolio-item">
       <div class="portfolio-comparison">
         <div class="p-side">
@@ -555,15 +915,62 @@
       <div class="portfolio-label">Banner / campanha</div>
     </div>
 
+    <div class="portfolio-item">
+      <div class="portfolio-comparison">
+        <div class="p-side">
+          <img src="imgs/produto-antes.png" alt="Produto antes" />
+          <div class="p-side-label">ANTES</div>
+        </div>
+        <div class="p-side">
+          <img src="imgs/produto-depois.png" alt="Produto depois" />
+          <div class="p-side-label">DEPOIS</div>
+        </div>
+      </div>
+      <div class="portfolio-label">Foto de produto</div>
+    </div>
+
   </div>
 </div>
 
 <div class="divider"></div>
 
-<!-- ══ PREÇOS ════════════════════════════════════ -->
+<!-- ══ COMO FUNCIONA ══ -->
 <div class="section">
-  <div class="section-title">Planos</div>
-  <div class="section-sub">Paga por foto, sem assinatura</div>
+  <div class="section-label">O processo</div>
+  <div class="section-title">Simples como 1, 2, 3</div>
+  <div class="section-sub">Da foto no celular à imagem profissional em até 24 horas.</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h3>Manda a foto e descreve o que quer</h3>
+        <p>Pelo WhatsApp mesmo. Manda a referência, o nosso atendimento te guia no briefing e tira qualquer dúvida.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h3>A gente gera com IA em até 24h</h3>
+        <p>Equipe especializada usa IA profissional pra transformar sua foto com iluminação, fundo e composição de estúdio.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h3>Aprova, ajusta se quiser — paga só depois</h3>
+        <p>Pediu ajuste? É grátis. Só paga quando estiver 100% satisfeito. Recebe o arquivo final em alta resolução, sem marca d'água.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ PREÇOS ══ -->
+<div class="section">
+  <div class="section-label">Investimento</div>
+  <div class="section-title">Preço de foto profissional acessível</div>
+  <div class="section-sub">Sem assinatura. Paga só pelo que usar.</div>
   <div class="prices">
     <div class="price-card">
       <div class="price-value">R$30</div>
@@ -575,7 +982,7 @@
       </ul>
     </div>
     <div class="price-card featured">
-      <div class="price-tag">Mais pedido</div>
+      <div class="price-tag">🔥 Mais pedido</div>
       <div class="price-value">R$40</div>
       <div class="price-period">por foto · padrão</div>
       <ul class="price-features">
@@ -594,19 +1001,38 @@
       </ul>
     </div>
   </div>
+  <p class="pricing-note">Precisa de volume? Fale com a gente para pacotes com desconto.</p>
 </div>
 
 <div class="divider"></div>
 
-<!-- ══ DEPOIMENTOS ════════════════════════════════ -->
+<!-- ══ GARANTIA ══ -->
 <div class="section">
-  <div class="section-title">O que dizem os clientes</div>
-  <div class="section-sub">Resultados reais, de pessoas reais</div>
+  <div class="guarantee">
+    <div class="guarantee-icon">🛡️</div>
+    <h3>Garantia de Satisfação Total</h3>
+    <p>Não vai gostar do resultado? A gente ajusta de graça, quantas vezes precisar. Você só paga quando aprovar.</p>
+    <div class="guarantee-items">
+      <div class="g-item"><div class="g-check">✓</div>Ajuste gratuito até você aprovar</div>
+      <div class="g-item"><div class="g-check">✓</div>Pagamento somente via Pix após aprovação</div>
+      <div class="g-item"><div class="g-check">✓</div>Arquivo final sem marca d'água</div>
+      <div class="g-item"><div class="g-check">✓</div>Sem contrato, sem mensalidade</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ DEPOIMENTOS ══ -->
+<div class="section">
+  <div class="section-label">Clientes</div>
+  <div class="section-title">Quem já usou recomenda</div>
+  <div class="section-sub">Resultados reais de quem apostou na foto com IA.</div>
   <div class="testimonials">
 
     <div class="testimonial">
       <div class="stars">★★★★★</div>
-      <div class="testimonial-text">"Mandei a foto do meu produto tirada no celular e recebi uma imagem de catálogo no mesmo dia. Minhas vendas no Instagram aumentaram na semana seguinte."</div>
+      <div class="testimonial-text">"Mandei a foto do meu produto tirada no celular e recebi uma imagem de catálogo no mesmo dia. Minhas vendas no Instagram aumentaram logo na semana seguinte. Vale cada centavo."</div>
       <div class="testimonial-author">
         <div class="author-avatar" style="background:#1D9E75;">A</div>
         <div>
@@ -618,19 +1044,19 @@
 
     <div class="testimonial">
       <div class="stars">★★★★★</div>
-      <div class="testimonial-text">"As fotos do meu cardápio estavam horríveis. Agora meu iFood tem as melhores fotos da região — e o pedido médio subiu. Valeu muito o investimento."</div>
+      <div class="testimonial-text">"As fotos do meu cardápio estavam péssimas e eu perdia pedido todo dia. Agora meu iFood tem as melhores fotos da região — e o ticket médio subiu. Melhor investimento do mês."</div>
       <div class="testimonial-author">
         <div class="author-avatar" style="background:#E67E22;">C</div>
         <div>
           <div class="author-name">Carlos M.</div>
-          <div class="author-role">Dono de restaurante · iFood</div>
+          <div class="author-role">Restaurante · iFood</div>
         </div>
       </div>
     </div>
 
     <div class="testimonial">
       <div class="stars">★★★★★</div>
-      <div class="testimonial-text">"Precisava de foto profissional pro LinkedIn urgente. Em menos de 24h tinha uma imagem linda, com fundo neutro e tudo. Recomendo demais."</div>
+      <div class="testimonial-text">"Precisava de foto profissional pro LinkedIn com urgência. Em menos de 24h tinha uma foto linda, fundo neutro, iluminação perfeita. Economizei R$400 em comparação a um fotógrafo."</div>
       <div class="testimonial-author">
         <div class="author-avatar" style="background:#8E44AD;">F</div>
         <div>
@@ -645,66 +1071,147 @@
 
 <div class="divider"></div>
 
-<!-- ══ FORMULÁRIO ════════════════════════════════ -->
-<div class="section" id="orcamento">
-  <div class="form-card">
-    <h2>Faça seu orçamento grátis</h2>
-    <div class="sub">Resposta em minutos pelo WhatsApp</div>
+<!-- ══ FAQ ══ -->
+<div class="section">
+  <div class="section-label">Dúvidas</div>
+  <div class="section-title">Perguntas frequentes</div>
+  <div class="section-sub">Transparência total antes de você decidir.</div>
+  <div class="faq">
 
-    <div class="field">
-      <label>Qual tipo de imagem você precisa?</label>
-      <div class="options-grid" id="tipo-opts">
-        <div class="opt" data-val="foto de produto" onclick="toggleOpt(this)">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2h12a2 2 0 012 2v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/></svg>
-          Foto de produto
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        A IA mantém exatamente o meu produto na imagem?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Sim. Você manda a foto de referência e a gente preserva todas as características do seu produto. O que muda é o fundo, a iluminação e a composição — não o produto em si.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        E se eu não gostar do resultado?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Você pede ajuste gratuitamente e a gente refaz. Só paga quando estiver 100% satisfeito com o resultado. Simples assim.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Quanto tempo demora pra receber?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">A entrega padrão é em até 24 horas após o briefing. Para pedidos urgentes, temos prioridade na fila — basta informar ao chamar no WhatsApp.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Funciona para qualquer tipo de produto ou serviço?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Trabalhamos com foto de produto para e-commerce, foto de comida para cardápio e iFood, retrato profissional e banner/imagem de campanha. Não fazemos vídeo nem áudio.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        Como é feito o pagamento?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a">Somente via Pix, depois que você aprovar o resultado. Você nunca paga antes de ver e gostar da imagem.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ FORM ══ -->
+<div class="form-wrap" id="orcamento">
+  <div class="form-inner">
+    <div class="section-label">Orçamento</div>
+    <div class="section-title" style="color:#fff;margin-bottom:0.3rem;">Sua próxima foto começa agora</div>
+    <div class="section-sub">Preencha abaixo e receba resposta em minutos pelo WhatsApp.</div>
+
+    <div class="form-card">
+      <div class="field">
+        <label>Qual tipo de imagem você precisa?</label>
+        <div class="options-grid" id="tipo-opts">
+          <div class="opt" data-val="foto de produto" onclick="toggleOpt(this)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2h12a2 2 0 012 2v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2z"/></svg>
+            Foto de produto
+          </div>
+          <div class="opt" data-val="retrato profissional" onclick="toggleOpt(this)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Retrato
+          </div>
+          <div class="opt" data-val="foto de comida" onclick="toggleOpt(this)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            Foto de comida
+          </div>
+          <div class="opt" data-val="outro tipo" onclick="toggleOpt(this)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>
+            Outro
+          </div>
         </div>
-        <div class="opt" data-val="retrato profissional" onclick="toggleOpt(this)">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-          Retrato
+        <div class="field-error" id="err-tipo">Selecione pelo menos uma opção.</div>
+      </div>
+
+      <div class="field">
+        <label>Seu nome</label>
+        <input type="text" id="nome" placeholder="Como posso te chamar?" />
+        <div class="field-error" id="err-nome">Informe seu nome.</div>
+      </div>
+
+      <button class="wpp-btn" onclick="enviarWhatsApp()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Quero meu orçamento grátis
+      </button>
+
+      <div class="form-trust">
+        <div class="form-trust-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Resposta em minutos
         </div>
-        <div class="opt" data-val="foto de comida" onclick="toggleOpt(this)">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-          Foto de comida
+        <div class="form-trust-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Sem compromisso
         </div>
-        <div class="opt" data-val="outro tipo" onclick="toggleOpt(this)">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>
-          Outro
+        <div class="form-trust-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Paga só ao aprovar
         </div>
       </div>
-      <div class="field-error" id="err-tipo">Selecione pelo menos uma opção.</div>
-    </div>
-
-    <div class="field">
-      <label>Seu nome</label>
-      <input type="text" id="nome" placeholder="Como posso te chamar?" />
-      <div class="field-error" id="err-nome">Informe seu nome.</div>
-    </div>
-
-    <button class="wpp-btn" onclick="enviarWhatsApp()">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-      </svg>
-      Quero um orçamento no WhatsApp
-    </button>
-  </div>
-
-  <div class="trust">
-    <div class="trust-item">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      Entrega em até 24h
-    </div>
-    <div class="trust-item">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Ajuste gratuito
-    </div>
-    <div class="trust-item">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      Paga só ao aprovar
     </div>
   </div>
 </div>
 
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  Foto com IA · Entrega em 24h · Feito com ❤️ no Brasil
+</div>
+
 <script>
+  /* ── COMPARISON SLIDER ── */
+  const slider   = document.getElementById('compSlider');
+  const after    = document.getElementById('compAfter');
+  const handle   = document.getElementById('compHandle');
+  const afterImg = document.getElementById('compAfterImg');
+  const container = document.getElementById('compContainer');
+
+  function updateComp(val) {
+    after.style.width  = val + '%';
+    handle.style.left  = val + '%';
+    // make the after image always fill the full container width
+    afterImg.style.width = (container.offsetWidth) + 'px';
+  }
+
+  slider.addEventListener('input', (e) => updateComp(e.target.value));
+  window.addEventListener('resize', () => updateComp(slider.value));
+  updateComp(50);
+
+  /* ── FAQ ── */
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    item.classList.toggle('open');
+  }
+
+  /* ── FORM ── */
   const selectedTipos = [];
 
   function toggleOpt(el) {
