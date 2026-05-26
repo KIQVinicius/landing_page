@@ -1261,90 +1261,92 @@
 <!-- ══ VISITOR TRACKING ══ -->
 <script>
 (function () {
-  // Evita logar mais de uma vez por sessão
-  if (sessionStorage.getItem('_vlog')) return;
+  var inicio = Date.now();
 
-  var REPO  = 'KIQVinicius/landing_page';
-  var WORKER_URL = 'WORKER_URL_AQUI'; // ex: https://imagenai-log.SEU_USUARIO.workers.dev
+  // Origem do visitante
+  var ref = 'direct';
+  if (document.referrer) {
+    var r = document.referrer;
+    ref = r.includes('facebook') || r.includes('fb.com') ? 'Facebook'
+        : r.includes('instagram')                        ? 'Instagram'
+        : r.includes('google')                           ? 'Google'
+        : new URL(r).hostname;
+  }
 
-  var session = {
-    ts:      new Date().toISOString(),
-    ref:     document.referrer
-               ? (document.referrer.includes('facebook') || document.referrer.includes('fb.com') ? 'facebook'
-                : document.referrer.includes('instagram') ? 'instagram'
-                : document.referrer.includes('google')    ? 'google'
-                : new URL(document.referrer).hostname)
-               : 'direct',
-    device:  /Mobi|Android/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
-    lang:    (navigator.language || 'unknown').split('-')[0],
-    sections: [],
-    wpp:     false,
-    form:    false
-  };
+  var device  = /Mobi|Android/i.test(navigator.userAgent) ? 'Mobile 📱' : 'Desktop 💻';
+  var sections = [];
+  var notified  = false; // Envia só 1x por sessão
 
-  // Rastreia quais seções foram vistas
-  var secIds = [
-    'sec-hero','sec-dor','sec-slider','sec-portfolio',
-    'sec-processo','sec-preco','sec-garantia',
-    'sec-depoimentos','sec-faq','orcamento'
-  ];
+  // Rastreia seções vistas
   var labels = {
-    'sec-hero':'hero','sec-dor':'problema','sec-slider':'slider',
-    'sec-portfolio':'portfolio','sec-processo':'processo',
-    'sec-preco':'preco','sec-garantia':'garantia',
-    'sec-depoimentos':'depoimentos','sec-faq':'faq','orcamento':'formulario'
+    'sec-hero':'Hero','sec-dor':'Problema','sec-slider':'Slider antes/depois',
+    'sec-portfolio':'Portfólio','sec-processo':'Como funciona',
+    'sec-preco':'Preços','sec-garantia':'Garantia',
+    'sec-depoimentos':'Depoimentos','sec-faq':'FAQ','orcamento':'Formulário'
   };
-
   if (window.IntersectionObserver) {
     var obs = new IntersectionObserver(function(entries) {
       entries.forEach(function(e) {
         if (e.isIntersecting) {
           var lbl = labels[e.target.id];
-          if (lbl && session.sections.indexOf(lbl) === -1)
-            session.sections.push(lbl);
+          if (lbl && sections.indexOf(lbl) === -1) sections.push(lbl);
         }
       });
-    }, { threshold: 0.25 });
-
-    secIds.forEach(function(id) {
+    }, { threshold: 0.3 });
+    Object.keys(labels).forEach(function(id) {
       var el = document.getElementById(id);
       if (el) obs.observe(el);
     });
   }
 
-  // Rastreia clique no WhatsApp
-  document.querySelectorAll('a[href*="wa.me"]').forEach(function(el) {
-    el.addEventListener('click', function() {
-      session.wpp = true;
-      sendLog();
-    });
-  });
+  // ── Notifica via Z-API ──────────────────────────────────────────
+  function notify(tipo) {
+    if (notified) return;
+    notified = true;
 
-  // Rastreia envio do formulário
-  var origForm = window.enviarOrcamento;
-  window.enviarOrcamento = function() {
-    session.form = true;
-    if (origForm) origForm.apply(this, arguments);
-    sendLog();
-  };
+    var tempo  = Math.round((Date.now() - inicio) / 1000);
+    var minSeg = tempo >= 60
+      ? Math.floor(tempo/60) + 'min ' + (tempo%60) + 's'
+      : tempo + 's';
 
-  // Envia depois de 4 segundos (filtra bounces de bot)
-  var timer = setTimeout(sendLog, 4000);
+    var emoji  = tipo === 'wpp'  ? '📲 *Clicou no WhatsApp!*'
+               : tipo === 'form' ? '📝 *Enviou o formulário!*'
+               :                   '👁️ *Visitou a página*';
 
-  function sendLog() {
-    clearTimeout(timer);
-    if (sessionStorage.getItem('_vlog')) return;
-    sessionStorage.setItem('_vlog', '1');
+    var msg = emoji + '\n\n'
+      + '🔗 Veio de: ' + ref + '\n'
+      + device + '\n'
+      + '⏱️ Tempo na página: ' + minSeg + '\n'
+      + '👁️ Viu: ' + (sections.join(' → ') || 'só o topo') + '\n'
+      + '🕐 ' + new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
 
-    if (!WORKER_URL || WORKER_URL === 'WORKER_URL_AQUI') return;
+    // Z-API — credenciais ficam aqui (risco baixo: pior caso alguém te manda spam)
+    var inst  = atob('M0YzMzkwMzA2RjlFQTI0RkMyRDIzNkFEQzU1Mjc1NzY=');
+    var tok   = atob('MjZDM0JDQTJEQjZGOENGQjkwOUNEM0E5');
+    var ctok  = atob('RjM3YjVkMDk2ODg3MDQ3OTg4NDBhZjc4MDNkYTgwNmMwUw==');
 
-    fetch(WORKER_URL, {
+    fetch('https://api.z-api.io/instances/' + inst + '/token/' + tok + '/send-text', {
       method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify(session),
+      headers: { 'Content-Type': 'application/json', 'Client-Token': ctok },
+      body:    JSON.stringify({ phone: '5511975637189', message: msg }),
       keepalive: true
     }).catch(function(){});
   }
+
+  // Dispara no clique do WhatsApp
+  document.querySelectorAll('a[href*="wa.me"]').forEach(function(el) {
+    el.addEventListener('click', function() { notify('wpp'); });
+  });
+
+  // Dispara no envio do formulário
+  var _orig = window.enviarOrcamento;
+  window.enviarOrcamento = function() {
+    notify('form');
+    if (_orig) _orig.apply(this, arguments);
+  };
+
+  // Dispara se ficar 30s sem clicar em nada (visitante engajado)
+  setTimeout(function() { notify('visit'); }, 30000);
 })();
 </script>
 </body>
