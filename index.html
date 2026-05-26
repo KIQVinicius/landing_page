@@ -1250,7 +1250,7 @@
 
     const tipo = selectedTipos.join(', ');
     const msg =
-      `${saudacao()}! Meu nome é ${nome} e tenho interesse em foto com IA.\n\n` +
+      `${saudacao()}! Meu nome é ${nome} e gostaria de fazer um orçamento de foto.\n\n` +
       `📸 Tipo: ${tipo}\n\n` +
       `Poderia me passar um orçamento?`;
 
@@ -1264,7 +1264,7 @@
 
   function abrirWpp(e) {
     if (e) e.preventDefault();
-    var msg = saudacao() + '! Gostaria de fazer um orçamento de foto com IA 😊';
+    var msg = saudacao() + '! Gostaria de fazer um orçamento de foto 😊';
     window.open('https://wa.me/5511975637189?text=' + encodeURIComponent(msg), '_blank');
   }
 </script>
