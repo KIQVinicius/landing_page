@@ -260,6 +260,8 @@
     }
 
     .comp-before {
+      position: absolute;
+      top: 0; left: 0;
       width: 100%; height: 100%;
       object-fit: cover;
       display: block;
@@ -380,8 +382,11 @@
     }
 
     .p-side img {
+      position: absolute;
+      top: 0; left: 0;
       width: 100%; height: 100%;
       object-fit: cover;
+      object-position: top center;
       display: block;
     }
 
@@ -769,7 +774,7 @@
     }
 
     /* ══ RESPONSIVE ══ */
-    @media (max-width: 400px) {
+    @media (max-width: 480px) {
       .hero h1 { font-size: 26px; }
       .prices  { grid-template-columns: 1fr; }
       .price-card.featured { transform: scale(1); }
@@ -1265,6 +1270,7 @@
 
   function abrirWpp(e) {
     if (e) e.preventDefault();
+    if (typeof fbq !== 'undefined') fbq('track', 'Contact');
     var msg = saudacao() + '! Gostaria de fazer um orçamento de foto 😊';
     window.open('https://wa.me/5511975637189?text=' + encodeURIComponent(msg), '_blank');
   }
