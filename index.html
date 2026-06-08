@@ -671,7 +671,12 @@
 
   document.querySelectorAll('a[href*="wa.me"]').forEach(function(el) {
     el.addEventListener('click', function() {
-      if (typeof fbq !== 'undefined') fbq('track', 'Contact');
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Contact');
+        console.log('%c[Pixel] ✓ Evento Contact disparado', 'color:#25D366;font-weight:bold');
+      } else {
+        console.log('%c[Pixel] ✗ fbq NÃO carregado (bloqueado por adblock?)', 'color:red;font-weight:bold');
+      }
       notify('wpp');
     });
   });
