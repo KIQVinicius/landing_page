@@ -84,6 +84,15 @@
       backdrop-filter: blur(10px);
       padding: 10px 14px; z-index: 998;
       border-top: 1px solid rgba(255,255,255,0.08);
+      /* Animação de entrada/saída suave */
+      transform: translateY(0);
+      opacity: 1;
+      transition: transform 0.28s ease, opacity 0.28s ease;
+    }
+    .sticky-bar.hide {
+      transform: translateY(110%);
+      opacity: 0;
+      pointer-events: none;
     }
     .sticky-bar a {
       display: flex; align-items: center; justify-content: center; gap: 9px;
@@ -773,6 +782,35 @@
     });
   });
   setTimeout(function() { notify('visit'); }, 30000);
+
+  /* ── Sticky bar inteligente: oculta quando um btn-wpp está visível ── */
+  (function () {
+    var bar = document.querySelector('.sticky-bar');
+    if (!bar) return;
+
+    var ctaBtns = document.querySelectorAll('.btn-wpp');
+    if (!ctaBtns.length) return;
+
+    var visible = new Set();
+
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          visible.add(e.target);
+        } else {
+          visible.delete(e.target);
+        }
+      });
+      /* Se algum btn-wpp está na tela, esconde a sticky; senão, mostra */
+      if (visible.size > 0) {
+        bar.classList.add('hide');
+      } else {
+        bar.classList.remove('hide');
+      }
+    }, { threshold: 0.4 });
+
+    ctaBtns.forEach(function (btn) { obs.observe(btn); });
+  })();
 })();
 </script>
 
