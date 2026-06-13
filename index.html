@@ -783,14 +783,44 @@
     }).catch(function(){});
   }
 
+  /* ── Medidor de engajamento ──────────────────────────────────────────
+     O evento Contact só conta como conversão se a pessoa REALMENTE se
+     interessou: passou TEMPO_MIN na página E rolou até ver a demonstração.
+     Assim o Meta para de otimizar para clicador de 2 segundos. */
+  var TEMPO_MIN_MS = 15000;   // 15s na página
+  var viuDemo = false;
+
+  // Marca quando a seção de demonstração entra na tela
+  var demoEl = document.querySelector('.demo');
+  if (demoEl && 'IntersectionObserver' in window) {
+    var demoObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) viuDemo = true; });
+    }, { threshold: 0.3 });
+    demoObs.observe(demoEl);
+  }
+  // Fallback: rolou além de ~45% da página também conta como "viu a fundo"
+  window.addEventListener('scroll', function () {
+    var rolado = (window.scrollY + window.innerHeight) / document.body.scrollHeight;
+    if (rolado >= 0.45) viuDemo = true;
+  }, { passive: true });
+
+  function estaEngajado() {
+    return (Date.now() - inicio >= TEMPO_MIN_MS) && viuDemo;
+  }
+
   document.querySelectorAll('a[href*="wa.me"]').forEach(function(el) {
     el.addEventListener('click', function() {
-      if (typeof fbq !== 'undefined') {
+      // Dispara o Contact SÓ para cliques engajados (sinal de qualidade p/ o Meta)
+      if (estaEngajado() && typeof fbq !== 'undefined') {
         fbq('track', 'Contact');
-        console.log('%c[Pixel] ✓ Evento Contact disparado', 'color:#25D366;font-weight:bold');
-      } else {
+        console.log('%c[Pixel] ✓ Contact disparado (clique engajado)', 'color:#25D366;font-weight:bold');
+      } else if (typeof fbq === 'undefined') {
         console.log('%c[Pixel] ✗ fbq NÃO carregado (bloqueado por adblock?)', 'color:red;font-weight:bold');
+      } else {
+        var seg = Math.round((Date.now() - inicio) / 1000);
+        console.log('%c[Pixel] ⏭ Clique NÃO-qualificado — Contact omitido (tempo=' + seg + 's, viuDemo=' + viuDemo + ')', 'color:#E0A800;font-weight:bold');
       }
+      // O dono é SEMPRE avisado do clique, qualificado ou não
       notify('wpp');
     });
   });
